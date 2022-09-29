@@ -8,3 +8,4 @@
 ^autotest\.r$
 sqlhelper\.Rcheck
 .*tar\.gz$
+^\.github$
