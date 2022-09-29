@@ -1,0 +1,10 @@
+^LICENSE\.md$
+^\.gitlab-ci\.yml$
+^\.editorconfig$
+^\.bumpversion\.cfg$
+^Makefile$
+^\.gitchangelog\.rc$
+^\.lintr$
+^autotest\.r$
+sqlhelper\.Rcheck
+.*tar\.gz$

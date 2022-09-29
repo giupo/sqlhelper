@@ -1,0 +1,26 @@
+[simple]
+SELECT_TEST0="select * from psql"
+SELECT_TEST1="select * from pippo"
+
+[glue]
+query = "select * from test where name in ({name*})"
+
+[whisker]
+query = "select * from test where name = '{{name}}'"
+
+[whisker-glue]
+query = "select * from test where name = '{{name}}' and other in ({name*})"
+
+[multi]
+line = """select *
+ from dual
+"""
+
+[trim]
+down = " select * from dual "
+
+[multiline]
+array = [
+  "select *",
+  "from dual"
+]
