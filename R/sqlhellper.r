@@ -41,7 +41,7 @@ get_sql <- function(keys, params = NULL,
     tokens <- tokens[-1]
   }
 
-  if (length(sql) == 0 || nchar(sql) == 0) {
+  if (length(sql) == 0 || all(nchar(sql) == 0)) {
     stop(glue::glue("'{keys}' doesn't define a query in {config_path}"))
   }
 
