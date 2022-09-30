@@ -30,7 +30,6 @@ install:
   stage: deploy
   needs:
     - building
-    - test
   tags:
     - prod
   allow_failure: false
