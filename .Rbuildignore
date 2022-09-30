@@ -9,3 +9,4 @@
 sqlhelper\.Rcheck
 .*tar\.gz$
 ^\.github$
+^public/
