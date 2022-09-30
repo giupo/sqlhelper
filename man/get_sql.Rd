@@ -7,6 +7,7 @@
 get_sql(
   keys,
   params = NULL,
+  .multiline = FALSE,
   config_path = system.file("ini/sql.toml", package = "sqlhelper")
 )
 }
@@ -14,6 +15,8 @@ get_sql(
 \item{keys}{a slash separated key string (eg: "section/query")}
 
 \item{params}{a named list with the params to substitue in the query}
+
+\item{.multiline}{is the query a list of statements? then place a \code{TRUE} here}
 
 \item{config_path}{path to the INI/TOML file where SQL is stored}
 }

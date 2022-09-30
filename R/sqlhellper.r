@@ -50,21 +50,17 @@ get_sql <- function(keys, params = NULL, .multiline = FALSE,
     sql <- paste(sql, collapse = " ")
   }
 
-
   handle_single_line <- function(sql) {
     # \patch to remove \\n from multilines values
     rutils::.trace("remove \\\\n from sql", name = ln)
     sql <- gsub("\\\\n", " ", sql)
     sql <- stringr::str_trim(sql)
 
-
-
     rutils::.debug("Query for %s: %s", keys, sql, name = ln)
 
     if (is.null(params)) {
       return(sql)
     }
-
 
     if (!is.list(params) || is.null(names(params))) {
       stop("params must be a named list")
