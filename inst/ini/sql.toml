@@ -24,3 +24,13 @@ array = [
   "select *",
   "from dual"
 ]
+
+multistatements = [
+  "select * from dual",
+  "select * from test"
+]
+
+multistatements_with_params = [
+  "select * from dual where a = {a}",
+  "select * from test where b = {{b}}"
+]

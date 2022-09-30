@@ -17,6 +17,7 @@ read_config <- memoise::memoise(.read_config)
 #'
 #' @param keys a slash separated key string (eg: "section/query")
 #' @param params a named list with the params to substitue in the query
+#' @param .multiline is the query a list of statements? then place a `TRUE` here
 #' @param config_path path to the INI/TOML file where SQL is stored
 #' @return a string containing the SQL query
 #' @examples
@@ -24,7 +25,7 @@ read_config <- memoise::memoise(.read_config)
 #'   get_sql("whisker/query", list(name = "Dwayne"))
 #' @export
 
-get_sql <- function(keys, params = NULL,
+get_sql <- function(keys, params = NULL, .multiline = FALSE,
   config_path = system.file("ini/sql.toml", package = "sqlhelper")) {
   ln <- "sqlhelper::get_sql"
   config <- read_config(config_path)
@@ -45,36 +46,42 @@ get_sql <- function(keys, params = NULL,
     stop(glue::glue("'{keys}' doesn't define a query in {config_path}"))
   }
 
-  if (length(sql) > 1) {
+  if (length(sql) > 1 && !.multiline) {
     sql <- paste(sql, collapse = " ")
   }
-  # \patch to remove \\n from multilines values
-  rutils::.trace("remove \\\\n from sql", name = ln)
-  sql <- gsub("\\\\n", " ", sql)
-  sql <- stringr::str_trim(sql)
+
+
+  handle_single_line <- function(sql) {
+    # \patch to remove \\n from multilines values
+    rutils::.trace("remove \\\\n from sql", name = ln)
+    sql <- gsub("\\\\n", " ", sql)
+    sql <- stringr::str_trim(sql)
 
 
 
-  rutils::.debug("Query for %s: %s", keys, sql, name = ln)
+    rutils::.debug("Query for %s: %s", keys, sql, name = ln)
 
-  if (is.null(params)) {
-    return(sql)
+    if (is.null(params)) {
+      return(sql)
+    }
+
+
+    if (!is.list(params) || is.null(names(params))) {
+      stop("params must be a named list")
+    }
+
+    sql <- whisker::whisker.render(sql, params)
+
+    if (".con" %in% names(params)) {
+      con <- params[[".con"]]
+      params[[".con"]] <- NULL
+      glue::glue_data_sql(sql, .x = params, .con = con)
+    } else {
+      sql
+    }
   }
 
-
-  if (!is.list(params) || is.null(names(params))) {
-    stop("params must be a named list")
-  }
-
-  sql <- whisker::whisker.render(sql, params)
-
-  if (".con" %in% names(params)) {
-    con <- params[[".con"]]
-    params[[".con"]] <- NULL
-    glue::glue_data_sql(sql, .x = params, .con = con)
-  } else {
-    sql
-  }
+  sapply(sql, handle_single_line, USE.NAMES = FALSE)
 }
 
 

@@ -69,3 +69,24 @@ test_that("get_sql fails if params isn't a named list", {
   expect_error(get_sql("trim/down", list(1, 2, 3)),
     "params must be a named list")
 })
+
+test_that("handle multiple statements by a single key", {
+  expect_error(x <- get_sql("multiline/multistatements", .multiline = TRUE), NA)
+  expect_equal(length(x), 2)
+})
+
+test_that("handle multiline statements by a single key with params", {
+  con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+  on.exit(DBI::dbDisconnect(con))
+  expect_error(x <- get_sql("multiline/multistatements_with_params",
+    list(
+      a = 1,
+      b = 2,
+      .con = con
+    ),
+    .multiline = TRUE), NA)
+  expect_equal(length(x), 2)
+
+  expect_equal(as.character(x[[1]]), "select * from dual where a = 1")
+  expect_equal(as.character(x[[2]]), "select * from test where b = 2")
+})
