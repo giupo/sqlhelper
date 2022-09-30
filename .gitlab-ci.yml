@@ -6,7 +6,7 @@ stages:
 building:
   stage: build
   script:
-    - R -e 'devtools::check()'
+    - make check
 
 # To have the coverage percentage appear as a gitlab badge follow these
 # instructions:
@@ -15,29 +15,77 @@ building:
 # Coverage: \d+\.\d+
 
 testing:
-    stage: test
-    allow_failure: true
-    when: on_success
-    only:
-        - main
-    script:
-        - Rscript -e 'covr::gitlab(quiet = FALSE)'
-    artifacts:
-        paths:
-            - public
+  stage: test
+  allow_failure: true
+  when: on_success
+  only:
+    - main
+  script:
+    - Rscript -e 'covr::gitlab(quiet = FALSE)'
+  artifacts:
+    paths:
+      - public
+
+install:
+  stage: deploy
+  needs:
+    - building
+    - test
+  tags:
+    - prod
+  allow_failure: false
+  when: on_success
+  script:
+    - make install
+  only:
+    - tags
+
+install_collaudo:
+  stage: deploy
+  needs:
+    - building
+  tags:
+    - collaudo
+  allow_failure: false
+  when: on_success
+  script:
+    - make install
+
+coverage:
+  stage: test
+  needs:
+    - building
+  allow_failure: true
+  when: on_success
+  only:
+    - main
+  script:
+    - make coverage
+
+zero_coverage:
+  stage: test
+  needs:
+    - building
+    - coverage
+  allow_failure: true
+  when: on_success
+  only:
+    - main
+  script:
+    - make zero_coverage
 
 # To produce a code coverage report as a GitLab page see
 # https://about.gitlab.com/2016/11/03/publish-code-coverage-report-with-gitlab-pages/
 
 pages:
-    stage: deploy
-    dependencies:
-        - testing
-    script:
-        - ls
-    artifacts:
-        paths:
-            - public
-        expire_in: 30 days
-    only:
-        - master
+  stage: deploy
+  dependencies:
+    - testing
+  script:
+    - ls
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - main

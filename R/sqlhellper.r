@@ -82,4 +82,5 @@ get_sql <- function(keys, params = NULL,
   memoise::memoise(function() {
     # damn you, R CMD check
   })
+  0
 }

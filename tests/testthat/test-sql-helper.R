@@ -1,3 +1,7 @@
+test_that("just for full coverage, ignore me", {
+  expect_equal(.junk(), 0)
+})
+
 test_that("get_sql fails if config_path doesn't exists", {
   path <- "/non/esisto"
   expect_false(file.exists(path))
@@ -65,7 +69,3 @@ test_that("get_sql fails if params isn't a named list", {
   expect_error(get_sql("trim/down", list(1, 2, 3)),
     "params must be a named list")
 })
-
-
-
-

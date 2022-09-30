@@ -48,6 +48,8 @@ autotest:
 coverage:
 	$(R_SCRIPT) -e 'covr::package_coverage(path=".")'
 
+zero_coverage:
+	$(R_SCRIPT) -e 'covr::zero_coverage(covr::package_coverage(path = "."))'
 test:
 	$(R_SCRIPT) -e 'devtools::test()'
 
