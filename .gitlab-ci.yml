@@ -49,6 +49,8 @@ install_collaudo:
   when: on_success
   script:
     - make install
+  only:
+    - main
 
 coverage:
   stage: test
