@@ -12,7 +12,7 @@ SRC_FILES := $(wildcard src/*) $(addprefix src/, $(COPY_SRC))
 PKG_FILES := DESCRIPTION NAMESPACE $(R_FILES) $(SRC_FILES)
 PKG_FILE := $(PKG_NAME)_$(PKG_VERSION).tar.gz
 
-.PHONY: NAMESPACE list autotest coverage changelog CHANGELOG.md
+.PHONY: NAMESPACE list autotest coverage changelog NEWS.md
 
 tarball: $(PKG_FILE)
 
@@ -53,7 +53,7 @@ zero_coverage:
 test:
 	$(R_SCRIPT) -e 'devtools::test()'
 
-CHANGELOG.md:
-	gitchangelog | grep -v "git-svn-id" > CHANGELOG.md
+NEWS.md:
+	gitchangelog | grep -v "git-svn-id" > NEWS.md
 
-changelog: CHANGELOG.md
+changelog: NEWS.md
