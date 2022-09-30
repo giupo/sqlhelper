@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+v0.0.3 (2022-09-30)
+-------------------
+- Bump version: 0.0.2 → 0.0.3. [Giuseppe Acito]
+- Adds multiline statements. [Giuseppe Acito]
+- Adds CONTRIBUTING -- fixed. [Giuseppe Acito]
+
+
 v0.0.2 (2022-09-30)
 -------------------
 - Bump version: 0.0.1 → 0.0.2. [Giuseppe Acito]
