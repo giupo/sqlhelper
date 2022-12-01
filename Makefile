@@ -55,5 +55,6 @@ test:
 
 NEWS.md:
 	gitchangelog | grep -v "git-svn-id" > NEWS.md
+	git add NEWS.md && git commit -am "updates NEWS.md"
 
 changelog: NEWS.md
