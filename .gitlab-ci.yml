@@ -25,10 +25,7 @@ testing:
   only:
     - main
   script:
-    - Rscript -e 'covr::gitlab(quiet = FALSE)'
-  artifacts:
-    paths:
-      - public
+    - Rscript -e 'devtools::test()'
 
 install:
   stage: deploy
