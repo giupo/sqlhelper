@@ -5,6 +5,8 @@ stages:
 
 building:
   stage: build
+  tags:
+    - collaudo
   script:
     - make check
 
@@ -18,6 +20,8 @@ testing:
   stage: test
   allow_failure: true
   when: on_success
+  tags:
+    - collaudo
   only:
     - main
   script:
@@ -54,6 +58,8 @@ install_collaudo:
 
 coverage:
   stage: test
+  tags:
+    - collaudo
   needs:
     - building
   allow_failure: true
@@ -74,19 +80,3 @@ zero_coverage:
     - main
   script:
     - make zero_coverage
-
-# To produce a code coverage report as a GitLab page see
-# https://about.gitlab.com/2016/11/03/publish-code-coverage-report-with-gitlab-pages/
-
-pages:
-  stage: deploy
-  dependencies:
-    - testing
-  script:
-    - ls
-  artifacts:
-    paths:
-      - public
-    expire_in: 30 days
-  only:
-    - main
