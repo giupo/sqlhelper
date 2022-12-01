@@ -62,7 +62,7 @@ get_sql <- function(keys, params = NULL, .multiline = FALSE,
       return(sql)
     }
 
-    if (!is.list(params) || is.null(names(params))) {
+    if (!is.list(params) || length(params) > 0 && is.null(names(params))) {
       stop("params must be a named list")
     }
 

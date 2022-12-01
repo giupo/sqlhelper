@@ -70,6 +70,10 @@ test_that("get_sql fails if params isn't a named list", {
     "params must be a named list")
 })
 
+test_that("get_sql doesn't fail if params is an empty list", {
+  expect_error(get_sql("trim/down", params = list()), NA)
+})
+
 test_that("handle multiple statements by a single key", {
   expect_error(x <- get_sql("multiline/multistatements", .multiline = TRUE), NA)
   expect_equal(length(x), 2)
