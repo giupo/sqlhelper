@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+v0.0.7 (2025-04-23)
+-------------------
+- Bump version: 0.0.6 → 0.0.7. [MasterOfPuppets]
+
+
 v0.0.6 (2025-04-23)
 -------------------
 - Bump version: 0.0.5 → 0.0.6. [MasterOfPuppets]
