@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+v0.0.10 (2025-04-23)
+--------------------
+- Bump version: 0.0.9 → 0.0.10. [MasterOfPuppets]
+- Remove only:main from coverage. [MasterOfPuppets]
+
+
 v0.0.9 (2025-04-23)
 -------------------
 - Bump version: 0.0.8 → 0.0.9. [MasterOfPuppets]
