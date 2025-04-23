@@ -1,12 +1,24 @@
+
+.default_matrix: &r_matrix
+  parallel:
+    matrix:
+      - R_BIN: "R"
+        R_LIBS_USER: "$cfin_public/.R/4.2.0/library"
+        RSCRIPT_BIN: "Rscript"
+      - R_BIN: "R-4.4.2"
+        R_LIBS_USER: "$cfin_public/.R/4.4.2/library"
+        RSCRIPT_BIN: "Rscript-4.4.2"
+
 stages:
   - build
   - test
   - deploy
 
 building:
+  <<: *r_matrix
   stage: build
-  tags:
-    - collaudo
+  #tags:
+  #  - collaudo
   script:
     - make check
 
@@ -17,22 +29,24 @@ building:
 # Coverage: \d+\.\d+
 
 testing:
+  <<: *r_matrix
   stage: test
   allow_failure: true
   when: on_success
-  tags:
-    - collaudo
+  #tags:
+  #  - collaudo
   only:
     - main
   script:
-    - Rscript -e 'devtools::test()'
+    - $(RSCRIPT_BIN) -e 'devtools::test()'
 
 install:
+  <<: *r_matrix
   stage: deploy
   needs:
     - building
-  tags:
-    - prod
+  #tags:
+  #  - prod
   allow_failure: false
   when: on_success
   script:
@@ -40,23 +54,24 @@ install:
   only:
     - tags
 
-install_collaudo:
-  stage: deploy
-  needs:
-    - building
-  tags:
-    - collaudo
-  allow_failure: false
-  when: on_success
-  script:
-    - make install
-  only:
-    - main
+#install_collaudo:
+#  stage: deploy
+#  needs:
+#    - building
+#  tags:
+#    - collaudo
+#  allow_failure: false
+#  when: on_success
+#  script:
+#    - make install
+#  only:
+#    - main
 
 coverage:
+  <<: *r_matrix
   stage: test
-  tags:
-    - collaudo
+  #tags:
+  #  - collaudo
   needs:
     - building
   allow_failure: true
@@ -67,13 +82,14 @@ coverage:
     - make coverage
 
 zero_coverage:
+  <<: *r_matrix
   stage: test
   needs:
     - building
     - coverage
   allow_failure: true
   when: on_success
-  only:
-    - main
+  # only:
+  #  - main
   script:
     - make zero_coverage

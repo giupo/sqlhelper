@@ -5,8 +5,10 @@
 PKG_VERSION=$(shell grep -i ^version DESCRIPTION | cut -d : -d \  -f 2)
 PKG_NAME=$(shell grep -i ^package DESCRIPTION | cut -d : -d \  -f 2)
 
-R_EXEC := R
-R_SCRIPT := Rscript
+
+R_BIN ?= R
+RSCRIPT_BIN ?= Rscript
+
 R_FILES := $(wildcard R/*.[R|r])
 SRC_FILES := $(wildcard src/*) $(addprefix src/, $(COPY_SRC))
 PKG_FILES := DESCRIPTION NAMESPACE $(R_FILES) $(SRC_FILES)
@@ -17,18 +19,18 @@ PKG_FILE := $(PKG_NAME)_$(PKG_VERSION).tar.gz
 tarball: $(PKG_FILE)
 
 $(PKG_FILE): $(PKG_FILES)
-	$(R_EXEC) --vanilla CMD build .
+	$(R_BIN) --vanilla CMD build .
 
 build: $(PKG_FILE)
 
 check:
-	$(R_SCRIPT) -e 'devtools::check()'
+	$(RSCRIPT_BIN) -e 'devtools::check()'
 
 install: $(PKG_FILE)
-	$(R_EXEC) --vanilla CMD INSTALL $(PKG_FILE)
+	$(R_BIN) --vanilla CMD INSTALL $(PKG_FILE)
 
 NAMESPACE: $(R_FILES)
-	$(R_SCRIPT) -e "devtools::document()"
+	$(RSCRIPT_BIN) -e "devtools::document()"
 
 clean:
 	-rm -f $(PKG_FILE)
@@ -43,15 +45,15 @@ list:
 	@echo $(SRC_FILES)
 
 autotest:
-	$(R_SCRIPT) autotest.r
+	$(RSCRIPT_BIN) autotest.r
 
 coverage:
-	$(R_SCRIPT) -e 'covr::package_coverage(path=".")'
+	$(RSCRIPT_BIN) -e 'covr::package_coverage(path=".")'
 
 zero_coverage:
-	$(R_SCRIPT) -e 'covr::zero_coverage(covr::package_coverage(path = "."))'
+	$(RSCRIPT_BIN) -e 'covr::zero_coverage(covr::package_coverage(path = "."))'
 test:
-	$(R_SCRIPT) -e 'devtools::test()'
+	$(RSCRIPT_BIN) -e 'devtools::test()'
 
 NEWS.md:
 	gitchangelog | grep -v "git-svn-id" > NEWS.md
