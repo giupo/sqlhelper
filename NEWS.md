@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+v0.0.8 (2025-04-23)
+-------------------
+- Bump version: 0.0.7 → 0.0.8. [MasterOfPuppets]
+- Relay on make. [MasterOfPuppets]
+
+
 v0.0.7 (2025-04-23)
 -------------------
 - Bump version: 0.0.6 → 0.0.7. [MasterOfPuppets]
