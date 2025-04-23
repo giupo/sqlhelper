@@ -42,7 +42,7 @@ testing:
   only:
     - main
   script:
-    - $(RSCRIPT_BIN) -e 'devtools::test()'
+    - make test
 
 install:
   <<: *r_matrix
