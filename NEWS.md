@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+v0.0.6 (2025-04-23)
+-------------------
+- Bump version: 0.0.5 → 0.0.6. [MasterOfPuppets]
+- Fixes test error in R-4.4.2. [MasterOfPuppets]
+
+
 v0.0.5 (2025-04-23)
 -------------------
 - Bump version: 0.0.4 → 0.0.5. [MasterOfPuppets]
