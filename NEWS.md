@@ -2,8 +2,9 @@ Changelog
 =========
 
 
-(unreleased)
-------------
+v0.0.5 (2025-04-23)
+-------------------
+- Bump version: 0.0.4 → 0.0.5. [MasterOfPuppets]
 - Eh si, e' stronzo. [MasterOfPuppets]
 - Allora sei stronzo. [MasterOfPuppets]
 - Debugging CI/CD. [MasterOfPuppets]
