@@ -20,6 +20,10 @@ building:
   #tags:
   #  - collaudo
   script:
+    - |
+      echo "Using R_BIN=$(R_BIN)"
+      echo "Using RSCRIPT_BIN=$(RSCRIPT_BIN)"
+      echo "Using R_LIBS_USER=${R_LIBS_USER}"
     - make check
 
 # To have the coverage percentage appear as a gitlab badge follow these
