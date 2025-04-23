@@ -3,10 +3,10 @@
   parallel:
     matrix:
       - R_BIN: "R"
-        R_LIBS_USER: "$cfin_public/.R/4.2.0/library"
+        R_LIBS_USER: "/home/group/public/894cf/.R/4.2.0/library"
         RSCRIPT_BIN: "Rscript"
       - R_BIN: "R-4.4.2"
-        R_LIBS_USER: "$cfin_public/.R/4.4.2/library"
+        R_LIBS_USER: "/home/group/public/894cf/.R/4.4.2/library"
         RSCRIPT_BIN: "Rscript-4.4.2"
 
 stages:
