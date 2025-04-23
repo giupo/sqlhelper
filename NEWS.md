@@ -2,6 +2,26 @@ Changelog
 =========
 
 
+(unreleased)
+------------
+- Eh si, e' stronzo. [MasterOfPuppets]
+- Allora sei stronzo. [MasterOfPuppets]
+- Debugging CI/CD. [MasterOfPuppets]
+- Parametrize and matrix build. [MasterOfPuppets]
+- Remove artifact production for CI/CD (still unsupported) [Giuseppe
+  Acito]
+- Update CI/CD on proper tags. [Giuseppe Acito]
+- Updates sqlhelper makefile. [Giuseppe Acito]
+
+
+v0.0.4 (2022-12-01)
+-------------------
+- Bump version: 0.0.3 → 0.0.4. [Giuseppe Acito]
+- Handles empty params lists. [Giuseppe Acito]
+- Updated docs. [Giuseppe Acito]
+- Install main only on collaudo; tags only in prod. [Giuseppe Acito]
+
+
 v0.0.3 (2022-09-30)
 -------------------
 - Bump version: 0.0.2 → 0.0.3. [Giuseppe Acito]
