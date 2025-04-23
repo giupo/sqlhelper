@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+v0.0.9 (2025-04-23)
+-------------------
+- Bump version: 0.0.8 → 0.0.9. [MasterOfPuppets]
+- Debugging error on matrix build. [MasterOfPuppets]
+
+
 v0.0.8 (2025-04-23)
 -------------------
 - Bump version: 0.0.7 → 0.0.8. [MasterOfPuppets]
