@@ -7,7 +7,7 @@ Description: Decouples the SQL queries from R code storing them into an INI/TOML
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.2
 Imports:
     configr (>= 0.3.5),
     memoise (>= 2.0.1),
