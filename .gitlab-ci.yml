@@ -9,6 +9,7 @@
         R_LIBS_USER: "/home/group/public/894cf/.R/4.4.2/library"
         RSCRIPT_BIN: "Rscript-4.4.2"
 
+
 stages:
   - build
   - test
@@ -39,8 +40,8 @@ testing:
   when: on_success
   #tags:
   #  - collaudo
-  only:
-    - main
+  #only:
+  #  - main
   script:
     - make test
 
@@ -80,8 +81,8 @@ coverage:
     - building
   allow_failure: true
   when: on_success
-  only:
-    - main
+  #only:
+  #  - main
   script:
     - make coverage
 
