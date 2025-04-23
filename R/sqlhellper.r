@@ -25,8 +25,12 @@ read_config <- memoise::memoise(.read_config)
 #'   get_sql("whisker/query", list(name = "Dwayne"))
 #' @export
 
-get_sql <- function(keys, params = NULL, .multiline = FALSE,
-  config_path = system.file("ini/sql.toml", package = "sqlhelper")) {
+get_sql <- function(
+  keys, 
+  params = NULL, 
+  .multiline = FALSE,
+  config_path = system.file("ini/sql.toml", package = "sqlhelper")
+) {
   ln <- "sqlhelper::get_sql"
   config <- read_config(config_path)
 
@@ -54,6 +58,7 @@ get_sql <- function(keys, params = NULL, .multiline = FALSE,
     # \patch to remove \\n from multilines values
     rutils::.trace("remove \\\\n from sql", name = ln)
     sql <- gsub("\\\\n", " ", sql)
+    sql <- gsub("[[:space:]]+", " ", sql)
     sql <- stringr::str_trim(sql)
 
     rutils::.debug("Query for %s: %s", keys, sql, name = ln)
