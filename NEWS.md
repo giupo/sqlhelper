@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+v0.0.13 (2025-04-24)
+--------------------
+- Trying to separate clone directories. [MasterOfPuppets]
+
+
 v0.0.10 (2025-04-23)
 --------------------
 - Remove only:main from coverage. [MasterOfPuppets]
