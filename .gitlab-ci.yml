@@ -1,22 +1,40 @@
-
-.default_matrix: &r_matrix
-  parallel:
-    matrix:
-      - R_BIN: "R"
-        R_LIBS_USER: "/home/group/public/894cf/.R/4.2.0/library"
-        RSCRIPT_BIN: "Rscript"
-      - R_BIN: "R-4.4.2"
-        R_LIBS_USER: "/home/group/public/894cf/.R/4.4.2/library"
-        RSCRIPT_BIN: "Rscript-4.4.2"
-
-
 stages:
   - build
   - test
   - deploy
 
+
+.default_matrix: &r_matrix
+  parallel:
+    matrix:
+      - ENV_LABEL: "R-default"
+        R_BIN: "R"
+        R_LIBS_USER: "/home/group/public/894cf/.R/4.2.0/library"
+        RSCRIPT_BIN: "Rscript"
+      
+      - ENV_LABEL: "R-4.4.2"
+        R_BIN: "R-4.4.2"
+        R_LIBS_USER: "/home/group/public/894cf/.R/4.4.2/library"
+        RSCRIPT_BIN: "Rscript-4.4.2"
+
+      - ENV_LABEL: "R-4.5.0"
+        R_BIN: "R-4.5.0"
+        R_LIBS_USER: "/home/group/public/894cf/.R/4.5.0/library"
+        RSCRIPT_BIN: "/home/group/public/894cf/cellar/R/4.5.0/bin/Rscript"
+         
+  before_script:
+    - |
+      mkdir -p ${R_LIBS_USER}
+      echo "ENV_LABEL: ${ENV_LABEL}"
+      echo "R_BIN: ${R_BIN}"
+      echo "RSCRIPT_BIN: ${RSCRIPT_BIN}"
+      echo "R_LIBS_USER: ${R_LIBS_USER}"
+      echo " ------- ENV --------"
+      echo "PATH: ${PATH}"
+
+
 building:
-  <<: *r_matrix
+  extends: .default_matrix
   stage: build
   #tags:
   #  - collaudo
@@ -34,7 +52,7 @@ building:
 # Coverage: \d+\.\d+
 
 testing:
-  <<: *r_matrix
+  extends: .default_matrix
   stage: test
   allow_failure: true
   when: on_success
@@ -46,7 +64,7 @@ testing:
     - make test
 
 install:
-  <<: *r_matrix
+  extends: .default_matrix
   stage: deploy
   needs:
     - building
@@ -59,21 +77,8 @@ install:
   only:
     - tags
 
-#install_collaudo:
-#  stage: deploy
-#  needs:
-#    - building
-#  tags:
-#    - collaudo
-#  allow_failure: false
-#  when: on_success
-#  script:
-#    - make install
-#  only:
-#    - main
-
 coverage:
-  <<: *r_matrix
+  extends: .default_matrix
   stage: test
   #tags:
   #  - collaudo
@@ -87,7 +92,7 @@ coverage:
     - make coverage
 
 zero_coverage:
-  <<: *r_matrix
+  extends: .default_matrix
   stage: test
   needs:
     - building
