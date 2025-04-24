@@ -60,3 +60,6 @@ NEWS.md:
 	git add NEWS.md && git commit -am "updates NEWS.md"
 
 changelog: NEWS.md
+
+install_deps:
+	$(RSCRIPT_BIN) -e 'deps <- pak::pkg_deps("."); pak::pak(deps[deps$$type=="standard", "ref"])'
